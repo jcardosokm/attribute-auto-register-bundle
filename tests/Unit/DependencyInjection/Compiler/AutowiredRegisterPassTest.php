@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AttributeAutoRegisterBundle\Tests\DependencyInjection\Compiler;
+namespace AttributeAutoRegisterBundle\Tests\Unit\DependencyInjection\Compiler;
 
 use AttributeAutoRegisterBundle\DependencyInjection\Compiler\AutowiredRegisterPass;
 use PHPUnit\Framework\Attributes\CoversClass;
