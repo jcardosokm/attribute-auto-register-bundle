@@ -35,6 +35,6 @@ class FileInspectorTest extends TestCase
         $file = $this->createMock(SplFileInfo::class);
         $file->method('getContents')->willReturn('');
 
-        static::assertNull($this->fileInspector->getNamespace($file));
+        static::assertEmpty($this->fileInspector->getNamespace($file));
     }
 }
