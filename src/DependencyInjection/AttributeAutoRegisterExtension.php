@@ -10,7 +10,6 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 /**
  * @internal
  */
-#[CodeCoverageIgnore]
 final class AttributeAutoRegisterExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void

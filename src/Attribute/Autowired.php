@@ -17,7 +17,8 @@ class Autowired
         public readonly ?string $id = null,
         public readonly ?string $factory = null,
         public readonly ?string $factoryMethod = null,
-        public readonly array $aliases = []
+        public readonly array $aliases = [],
+        public readonly \stdClass $stdClass = null
     ) {
     }
 }
