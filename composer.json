@@ -1,0 +1,75 @@
+{
+    "name": "jc/attribute-auto-register-bundle",
+    "description": "Automatically register classes into service container using #[Autowired] attribute",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true
+        },
+        "lock": false
+    },
+    "require": {
+        "php": ">=8.1",
+        "symfony/config": " ^6.3||^7.0",
+        "symfony/dependency-injection": " ^6.3||^7.0",
+        "symfony/http-foundation": " ^6.3||^7.0",
+        "symfony/http-kernel": " ^6.3||^7.0",
+        "symfony/framework-bundle": "^6.3||^7.0"
+    },
+    "require-dev": {
+        "phpmd/phpmd": "^2.14",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "phpstan/phpstan-strict-rules": "^1.5",
+        "phpstan/phpstan-symfony": "^1.3",
+        "phpunit/phpunit": "^10.4 || ^11.0",
+        "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^3.7",
+        "symfony/browser-kit": "^6.3||^7.0",
+        "symfony/css-selector": "^6.3||^7.0",
+        "symfony/http-client": "^6.3||^7.0",
+        "symfony/messenger": "^6.3||^7.0",
+        "symfony/monolog-bridge": "^6.3||^7.0",
+        "symfony/monolog-bundle": "^3.10",
+        "symfony/phpunit-bridge": "^6.3||^7.0",
+        "symfony/templating": "^6.3||^7.0",
+        "symfony/twig-bundle": "^6.3||^7.0",
+        "symfony/uid": "^6.3||^7.0",
+        "symfony/yaml": "^6.3||^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DR\\AttributeAutoRegisterBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DR\\AttributeAutoRegisterBundle\\Tests\\Unit\\": "tests/Unit/",
+            "DR\\AttributeAutoRegisterBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "check": ["@check:phpstan", "@check:phpmd", "@check:phpcs"],
+        "check:phpstan": "phpstan analyse",
+        "check:phpmd": "phpmd src,tests text phpmd.xml.dist --suffixes php",
+        "check:phpcs": "phpcs src tests",
+        "fix": "@fix:phpcbf",
+        "fix:phpcbf": "phpcbf src tests",
+        "test": "phpunit",
+        "test:integration": "phpunit --testsuite integration",
+        "test:unit": "phpunit --testsuite unit"
+    },
+    "suggest": {
+        "ramsey/uuid": "Ramsey's UUID generator",
+        "sentry/sentry": "Sentry.io integration",
+        "symfony/messenger": "Symfony's messenger",
+        "symfony/uid": "Symfony's UUID generator",
+        "symfony/http-client": "Symfony's HTTP client"
+    }
+}

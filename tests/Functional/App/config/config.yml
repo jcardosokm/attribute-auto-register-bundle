@@ -1,0 +1,12 @@
+parameters:
+  secret: dev
+  locale: en
+
+framework:
+  test: ~
+  secret: "%secret%"
+  http_method_override: false
+  php_errors:
+    log: true
+  handle_all_throwables: true
+  default_locale: "%locale%"
