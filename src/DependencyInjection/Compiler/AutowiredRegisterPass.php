@@ -28,7 +28,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        $filePaths = [dirname(__DIR__, 3) . '\tests\Functional\App'];
+        $filePaths = [dirname(__DIR__, 3) . '/tests/Functional/App'];
 
         $this->finder->name('*.php')->in($filePaths);
 
