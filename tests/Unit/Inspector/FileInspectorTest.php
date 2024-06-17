@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AttributeAutoRegisterBundle\Tests\Inspector;
+namespace AttributeAutoRegisterBundle\Tests\Unit\Inspector;
 
 use AttributeAutoRegisterBundle\Inspector\FileInspector;
 use PHPUnit\Framework\Attributes\CoversClass;
