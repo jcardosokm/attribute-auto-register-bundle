@@ -8,13 +8,15 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class FileInspector
 {
-    public function getNamespace(SplFileInfo $file): string
+    /**
+     * Extracts the namespace from a file appending the class name.
+     */
+    public function getNamespace(SplFileInfo $file): ?string
     {
-        $namespace = '';
-        if (preg_match('/namespace\s+(.*?);/s', $file->getContents(), $matches) === 1) {
-            $namespace = $matches[1];
+        if (preg_match('/namespace\s+(?P<path>.*?);/s', $file->getContents(), $matches) === 1) {
+            return $matches['path'] . '\\' . $file->getBasename('.php');
         }
 
-        return $namespace . '\\' . $file->getBasename('.php');
+        return null;
     }
 }

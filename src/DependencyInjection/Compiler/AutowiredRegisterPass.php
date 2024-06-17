@@ -42,12 +42,16 @@ class AutowiredRegisterPass implements CompilerPassInterface
 
             $namespace = $this->fileInspector->getNamespace($file);
 
-            if (str_contains($content, '#[Autowired]')) {
-                $container->setDefinition($namespace, $this->definitionFactory->createFromNamespace($namespace));
+            if ($namespace === null) {
                 continue;
             }
 
             if (class_exists($namespace) === false || interface_exists($namespace)) {
+                continue;
+            }
+
+            if (str_contains($content, '#[Autowired]')) {
+                $container->setDefinition($namespace, $this->definitionFactory->createFromNamespace($namespace));
                 continue;
             }
 

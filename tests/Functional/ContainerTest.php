@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AttributeAutoRegisterBundle\Tests\Functional;
 
-use AttributeAutoRegisterBundle\Tests\Functional\App\TestClasse;
+use AttributeAutoRegisterBundle\Tests\Functional\App\TestClass;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Symfony\Component\DependencyInjection\Container;
@@ -25,8 +25,8 @@ class ContainerTest extends AbstractKernelTestCase
      */
     public function testLoad(): void
     {
-        $class = $this->container->get(TestClasse::class);
+        $class = $this->container->get(TestClass::class);
 
-        static::assertInstanceOf(TestClasse::class, $class);
+        static::assertInstanceOf(TestClass::class, $class);
     }
 }

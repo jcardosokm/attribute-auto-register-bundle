@@ -7,6 +7,6 @@ namespace AttributeAutoRegisterBundle\Tests\Functional\App;
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 
 #[Autowired]
-class TestClasse
+class TestClass
 {
 }
