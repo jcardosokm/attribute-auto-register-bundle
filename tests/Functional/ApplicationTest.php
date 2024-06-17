@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AttributeAutoRegisterBundle\Tests\Functional;
 
-use App\TestClasse;
+use AttributeAutoRegisterBundle\Tests\Functional\App\TestClasse;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversNothing;
 
