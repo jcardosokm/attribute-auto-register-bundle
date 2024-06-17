@@ -8,6 +8,7 @@ use AttributeAutoRegisterBundle\Attribute\Autowired;
 use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
 use AttributeAutoRegisterBundle\Inspector\FileInspector;
 use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Finder\Finder;
@@ -42,11 +43,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
 
             $namespace = $this->fileInspector->getNamespace($file);
 
-            if ($namespace === null) {
-                continue;
-            }
-
-            if (class_exists($namespace) === false || interface_exists($namespace)) {
+            if ($this->shouldSkipNamespace($namespace)) {
                 continue;
             }
 
@@ -55,18 +52,31 @@ class AutowiredRegisterPass implements CompilerPassInterface
                 continue;
             }
 
-            $reflectionClass = new ReflectionClass($namespace);
-            if ($reflectionClass->isAbstract()) {
-                continue;
-            }
+            $this->processAttributes($namespace, $container);
+        }
+    }
 
-            $attributes = $reflectionClass->getAttributes(Autowired::class);
+    private function shouldSkipNamespace(string $namespace): bool
+    {
+        return $namespace === '' || class_exists($namespace) === false || interface_exists($namespace);
+    }
 
-            /** @var ReflectionClass<Autowired> $attribute */
-            foreach ($attributes as $attribute) {
-                $attr = $attribute->newInstance();
-                $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->createFromAttribute($attr, $namespace));
-            }
+    /**
+     * @throws ReflectionException
+     */
+    private function processAttributes(string $namespace, ContainerBuilder $container): void
+    {
+        $reflectionClass = new ReflectionClass($namespace);
+        if ($reflectionClass->isAbstract()) {
+            return;
+        }
+
+        $attributes = $reflectionClass->getAttributes(Autowired::class);
+
+        /** @var ReflectionClass<Autowired> $attribute */
+        foreach ($attributes as $attribute) {
+            $attr = $attribute->newInstance();
+            $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->createFromAttribute($attr, $namespace));
         }
     }
 }

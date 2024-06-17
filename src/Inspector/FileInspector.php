@@ -11,12 +11,12 @@ class FileInspector
     /**
      * Extracts the namespace from a file appending the class name.
      */
-    public function getNamespace(SplFileInfo $file): ?string
+    public function getNamespace(SplFileInfo $file): string
     {
         if (preg_match('/namespace\s+(?P<path>.*?);/s', $file->getContents(), $matches) === 1) {
             return $matches['path'] . '\\' . $file->getBasename('.php');
         }
 
-        return null;
+        return '';
     }
 }
