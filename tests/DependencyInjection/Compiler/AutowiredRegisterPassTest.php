@@ -29,6 +29,6 @@ class AutowiredRegisterPassTest extends TestCase
         $container = $this->createMock(ContainerBuilder::class);
         $this->compilerPass->process($container);
 
-        static::assertC($container->getDefinitions());
+        static::assertNotEmpty($container->getDefinitions());
     }
 }
