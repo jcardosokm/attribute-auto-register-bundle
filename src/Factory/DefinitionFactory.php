@@ -10,9 +10,9 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class DefinitionFactory
 {
-    public function createFromAttribute(Autowired $attribute): Definition
+    public function createFromAttribute(Autowired $attribute, string $class): Definition
     {
-        $definition = (new Definition($attribute->id))
+        $definition = (new Definition($class))
             ->setTags($attribute->aliases)
             ->setAutoconfigured(true)
             ->setPublic(true)

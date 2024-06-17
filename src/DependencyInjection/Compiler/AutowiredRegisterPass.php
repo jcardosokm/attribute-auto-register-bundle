@@ -65,7 +65,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
             /** @var ReflectionClass<Autowired> $attribute */
             foreach ($attributes as $attribute) {
                 $attr = $attribute->newInstance();
-                $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->createFromAttribute($attr));
+                $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->createFromAttribute($attr, $namespace));
             }
         }
     }
