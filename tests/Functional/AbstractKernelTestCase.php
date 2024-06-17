@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AttributeAutoRegisterBundle\Tests\Functional;
 
-use DR\AttributeAutoRegisterBundle\Tests\Functional\TestKernel;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class AbstractKernelTestCase extends KernelTestCase

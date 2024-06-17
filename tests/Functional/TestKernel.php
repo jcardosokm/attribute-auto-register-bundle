@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DR\AttributeAutoRegisterBundle\Tests\Functional;
+namespace AttributeAutoRegisterBundle\Tests\Functional;
 
 use AttributeAutoRegisterBundle\AttributeAutoRegisterBundle;
 use Exception;
