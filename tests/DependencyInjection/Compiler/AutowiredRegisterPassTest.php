@@ -24,11 +24,11 @@ class AutowiredRegisterPassTest extends TestCase
     /**
      * @throws Throwable
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $container = $this->createMock(ContainerBuilder::class);
         $this->compilerPass->process($container);
 
-        static::assertNotNull($container->getDefinitions());
+        static::assertC($container->getDefinitions());
     }
 }

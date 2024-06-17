@@ -66,6 +66,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
      */
     private function processAttributes(string $namespace, ContainerBuilder $container): void
     {
+        /** @var ReflectionClass<Autowired> $attribute */
         $reflectionClass = new ReflectionClass($namespace);
         if ($reflectionClass->isAbstract()) {
             return;
@@ -73,7 +74,6 @@ class AutowiredRegisterPass implements CompilerPassInterface
 
         $attributes = $reflectionClass->getAttributes(Autowired::class);
 
-        /** @var ReflectionClass<Autowired> $attribute */
         foreach ($attributes as $attribute) {
             $attr = $attribute->newInstance();
             $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->createFromAttribute($attr, $namespace));
