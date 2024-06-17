@@ -12,8 +12,10 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
  */
 final class AttributeAutoRegisterExtension extends Extension
 {
+    /**
+     * @SuppressWarnings("PMD.UnusedFormalParameter")
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
-
     }
 }
