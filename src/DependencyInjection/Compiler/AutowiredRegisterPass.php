@@ -69,7 +69,6 @@ class AutowiredRegisterPass implements CompilerPassInterface
      */
     private function processAttributes(string $namespace, ContainerBuilder $container): void
     {
-        /** @var ReflectionClass<string> $reflectionClass */
         $reflectionClass = new ReflectionClass($namespace);
         if ($reflectionClass->isAbstract()) {
             return;
