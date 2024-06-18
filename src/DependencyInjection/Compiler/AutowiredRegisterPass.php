@@ -46,7 +46,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
 
             $namespace = $this->fileInspector->getNamespace($file);
 
-            if ($this->shouldSkipNamespace($namespace)) {
+            if (class_exists($namespace) === false || interface_exists($namespace)) {
                 continue;
             }
 
@@ -57,11 +57,6 @@ class AutowiredRegisterPass implements CompilerPassInterface
 
             $this->processAttributes($namespace, $container);
         }
-    }
-
-    private function shouldSkipNamespace(string $namespace): bool
-    {
-        return $namespace === '' || class_exists($namespace) === false || interface_exists($namespace);
     }
 
     /**
