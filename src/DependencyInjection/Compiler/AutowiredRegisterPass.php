@@ -15,6 +15,9 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
 
+/**
+ * @codeCoverageIgnore
+ */
 class AutowiredRegisterPass implements CompilerPassInterface
 {
     public function __construct(
@@ -66,7 +69,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
      */
     private function processAttributes(string $namespace, ContainerBuilder $container): void
     {
-        /** @var ReflectionClass<class-string> $reflectionClass */
+        /** @var ReflectionClass<string> $reflectionClass */
         $reflectionClass = new ReflectionClass($namespace);
         if ($reflectionClass->isAbstract()) {
             return;

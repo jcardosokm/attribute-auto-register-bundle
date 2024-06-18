@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 
 /**
+ * @codeCoverageIgnore
  * @internal
  */
 final class AttributeAutoRegisterExtension extends Extension
