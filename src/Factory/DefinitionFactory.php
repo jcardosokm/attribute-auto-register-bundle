@@ -10,6 +10,9 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class DefinitionFactory
 {
+    /**
+     * @param class-string $class
+     */
     public function createFromAttribute(Autowired $attribute, string $class): Definition
     {
         $definition = (new Definition($class))
@@ -28,6 +31,9 @@ class DefinitionFactory
         return $definition;
     }
 
+    /**
+     * @param class-string $class
+     */
     public function createFromNamespace(string $class): Definition
     {
         return (new Definition($class))
