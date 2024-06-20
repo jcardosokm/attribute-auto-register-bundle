@@ -56,7 +56,7 @@ class DefinitionFactoryTest extends TestCase
 
     public function testCreateDefinition(): void
     {
-        $namespace  = Assert::classString('UT\Namespace');
+        $namespace  = Assert::classString(TestClass::class);
         $definition = $this->factory->createFromNamespace($namespace);
 
         static::assertSame($namespace, $definition->getClass());
