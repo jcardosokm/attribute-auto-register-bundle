@@ -6,6 +6,7 @@ namespace AttributeAutoRegisterBundle\Tests\Unit\Factory;
 
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
+use DR\Utils\Assert;
 use LogicException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +24,7 @@ class DefinitionFactoryTest extends TestCase
 
     public function testCreateDefinitionFromAttribute(): void
     {
-        $class     = 'UT\Autowired';
+        $class     = Assert::classString('UT\Autowired');
         $attribute = new Autowired('id1', 'MyFactory', 'create', ['UT\AutowiredAlias']);
 
         $definition = $this->factory->createFromAttribute($attribute, $class);
@@ -37,7 +38,7 @@ class DefinitionFactoryTest extends TestCase
 
     public function testCreateDefinitionFromAttributeWithoutFactoryMethod(): void
     {
-        $class     = 'UT\Autowired';
+        $class     = Assert::classString('UT\Autowired');
         $attribute = new Autowired('id3', 'MyFactory', aliases: ['UT\AutowiredAlias']);
 
         $this->expectException(LogicException::class);
@@ -54,7 +55,7 @@ class DefinitionFactoryTest extends TestCase
 
     public function testCreateDefinition(): void
     {
-        $namespace  = 'UT\Namespace';
+        $namespace  = Assert::classString('UT\Namespace');
         $definition = $this->factory->createFromNamespace($namespace);
 
         static::assertSame($namespace, $definition->getClass());
