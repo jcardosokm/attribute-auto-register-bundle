@@ -23,7 +23,7 @@ class DefinitionFactoryTest extends TestCase
         $this->factory = new DefinitionFactory();
     }
 
-    public function testCreateDefinitionFromAttribute(): void
+    public function testCreateWithAttribute(): void
     {
         $fqn       = Assert::classString(TestClass::class);
         $attribute = new Autowired('id1', 'MyFactory', 'create', ['UT\AutowiredAlias']);
@@ -37,7 +37,7 @@ class DefinitionFactoryTest extends TestCase
         static::assertTrue($definition->isAutowired());
     }
 
-    public function testCreateDefinitionFromAttributeWithoutFactoryMethod(): void
+    public function testCreateWithAttributeWithoutFactoryMethod(): void
     {
         $fqn       = Assert::classString('AttributeAutoRegisterBundle\Tests\Functional\App\TestClass');
         $attribute = new Autowired('id3', 'MyFactory', aliases: ['UT\AutowiredAlias']);
@@ -54,7 +54,7 @@ class DefinitionFactoryTest extends TestCase
         static::assertTrue($definition->isAutowired());
     }
 
-    public function testCreateDefinition(): void
+    public function testCreate(): void
     {
         $fqn        = Assert::classString(TestClass::class);
         $definition = $this->factory->create($fqn);
