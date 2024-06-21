@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$configs \\(array\\{filePaths\\: array\\{int, string\\}\\}\\) of method AttributeAutoRegisterBundle\\\\DependencyInjection\\\\AttributeAutoRegisterExtension\\:\\:load\\(\\) should be contravariant with parameter \\$configs \\(array\\) of method Symfony\\\\Component\\\\DependencyInjection\\\\Extension\\\\ExtensionInterface\\:\\:load\\(\\)$#"
+			count: 2
+			path: src/DependencyInjection/AttributeAutoRegisterExtension.php
+
+		-
 			message: "#^Parameter \\#1 \\$options \\(array\\{environment\\?\\: string, debug\\?\\: bool\\}\\) of method AttributeAutoRegisterBundle\\\\Tests\\\\Functional\\\\AbstractKernelTestCase\\:\\:createKernel\\(\\) should be contravariant with parameter \\$options \\(array\\) of method Symfony\\\\Bundle\\\\FrameworkBundle\\\\Test\\\\KernelTestCase\\:\\:createKernel\\(\\)$#"
 			count: 1
 			path: tests/Functional/AbstractKernelTestCase.php
