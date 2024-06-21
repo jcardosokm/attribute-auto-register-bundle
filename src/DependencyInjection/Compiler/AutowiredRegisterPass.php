@@ -21,9 +21,9 @@ use Throwable;
 class AutowiredRegisterPass implements CompilerPassInterface
 {
     public function __construct(
-        private readonly FileInspector $fileInspector = new FileInspector(),
-        private readonly DefinitionFactory $definitionFactory = new DefinitionFactory(),
-        private readonly Finder $finder = new Finder()
+        private readonly FileInspector $fileInspector,
+        private readonly DefinitionFactory $definitionFactory,
+        private readonly Finder $finder
     ) {
     }
 
@@ -32,8 +32,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        $filePaths = [dirname(__DIR__, 3) . '/tests/Functional/App'];
-
+        $filePaths = $container->getParameter('attribute_auto_register.file_paths');
         $this->finder->name('*.php')->in($filePaths);
 
         /** @var SplFileInfo $file */

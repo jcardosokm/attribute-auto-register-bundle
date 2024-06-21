@@ -27,6 +27,7 @@ final class TestKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load($this->getProjectDir() . "/App/config/config.yml");
+        $loader->load($this->getProjectDir() . "/App/config/autoregisterpath.yml");
     }
 
     public function getProjectDir(): string
