@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace AttributeAutoRegisterBundle\Tests\Unit\DependencyInjection\Compiler;
 
 use AttributeAutoRegisterBundle\DependencyInjection\Compiler\AutowiredRegisterPass;
+use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
+use AttributeAutoRegisterBundle\Inspector\FileInspector;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Finder\Finder;
 use Throwable;
 
 #[CoversClass(AutowiredRegisterPass::class)]
@@ -18,7 +21,11 @@ class AutowiredRegisterPassTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->compilerPass = new AutowiredRegisterPass();
+        $this->compilerPass = new AutowiredRegisterPass(
+            $this->createMock(FileInspector::class),
+            $this->createMock(DefinitionFactory::class),
+            $this->createMock(Finder::class)
+        );
     }
 
     /**

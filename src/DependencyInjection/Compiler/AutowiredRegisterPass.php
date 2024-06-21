@@ -33,6 +33,10 @@ class AutowiredRegisterPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $filePaths = $container->getParameter('attribute_auto_register.file_paths');
+        if (is_array($filePaths) === false) {
+            return;
+        }
+
         $this->finder->name('*.php')->in($filePaths);
 
         /** @var SplFileInfo $file */

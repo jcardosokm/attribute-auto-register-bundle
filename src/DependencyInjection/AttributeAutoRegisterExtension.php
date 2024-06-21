@@ -18,13 +18,12 @@ final class AttributeAutoRegisterExtension extends Extension
 {
     /**
      * @phpstan-param Options $configs
-     * @throws Exception
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
-        
+
         $container->setParameter('attribute_auto_register.file_paths', array_values($config['filePaths']));
     }
 }
