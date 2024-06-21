@@ -44,18 +44,18 @@ class AutowiredRegisterPass implements CompilerPassInterface
                 continue;
             }
 
-            $namespace = $this->fileInspector->getNamespace($file);
+            $fqn = $this->fileInspector->getFullQualifiedNamespace($file);
 
-            if (class_exists($namespace) === false || interface_exists($namespace)) {
+            if (class_exists($fqn) === false || interface_exists($fqn)) {
                 continue;
             }
 
             if (str_contains($content, '#[Autowired]')) {
-                $container->setDefinition($namespace, $this->definitionFactory->createFromNamespace($namespace));
+                $container->setDefinition($fqn, $this->definitionFactory->create($fqn));
                 continue;
             }
 
-            $this->processAttributes($namespace, $container);
+            $this->processAttributes($fqn, $container);
         }
     }
 
@@ -75,7 +75,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
         /** @var ReflectionClass<Autowired> $attribute */
         foreach ($attributes as $attribute) {
             $attr = $attribute->newInstance();
-            $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->createFromAttribute($attr, $namespace));
+            $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->create($namespace, $attr));
         }
     }
 }

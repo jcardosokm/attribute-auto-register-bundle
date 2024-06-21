@@ -20,21 +20,21 @@ class FileInspectorTest extends TestCase
         $this->fileInspector = new FileInspector();
     }
 
-    public function testGetNamespace(): void
+    public function testGetFullQualifiedNamespace(): void
     {
         $file = new SplFileInfo('tests/Functional/App/TestClass.php', 'tests/Functional/App', 'TestClass.php');
 
-        static::assertSame('AttributeAutoRegisterBundle\Tests\Functional\App\TestClass', $this->fileInspector->getNamespace($file));
+        static::assertSame('AttributeAutoRegisterBundle\Tests\Functional\App\TestClass', $this->fileInspector->getFullQualifiedNamespace($file));
     }
 
     /**
      * @throws Exception
      */
-    public function testGetNamespaceWithInvalidFile(): void
+    public function testGetFullQualifiedNamespaceWithInvalidFile(): void
     {
         $file = $this->createMock(SplFileInfo::class);
         $file->method('getContents')->willReturn('');
 
-        static::assertEmpty($this->fileInspector->getNamespace($file));
+        static::assertEmpty($this->fileInspector->getFullQualifiedNamespace($file));
     }
 }

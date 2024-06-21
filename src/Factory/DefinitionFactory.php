@@ -11,15 +11,20 @@ use Symfony\Component\DependencyInjection\Definition;
 class DefinitionFactory
 {
     /**
-     * @param class-string $class
+     * @param class-string $fqn
      */
-    public function createFromAttribute(Autowired $attribute, string $class): Definition
+    public function create(string $fqn, ?Autowired $attribute = null): Definition
     {
-        $definition = (new Definition($class))
-            ->setTags($attribute->aliases)
+        $definition = (new Definition($fqn))
             ->setAutoconfigured(true)
             ->setPublic(true)
             ->setAutowired(true);
+
+        if ($attribute === null) {
+            return $definition;
+        }
+
+        $definition->setTags($attribute->aliases);
 
         if ($attribute->factory !== null) {
             if ($attribute->factoryMethod === null) {
@@ -29,16 +34,5 @@ class DefinitionFactory
         }
 
         return $definition;
-    }
-
-    /**
-     * @param class-string $class
-     */
-    public function createFromNamespace(string $class): Definition
-    {
-        return (new Definition($class))
-            ->setAutoconfigured(true)
-            ->setPublic(true)
-            ->setAutowired(true);
     }
 }
