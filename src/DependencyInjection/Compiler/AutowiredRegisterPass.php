@@ -49,28 +49,28 @@ class AutowiredRegisterPass implements CompilerPassInterface
                 continue;
             }
 
-            $fqn = $this->fileInspector->getFullQualifiedNamespace($file);
+            $fqcn = $this->fileInspector->getFullQualifiedClassName($file);
 
-            if (class_exists($fqn) === false || interface_exists($fqn)) {
+            if (class_exists($fqcn) === false || interface_exists($fqcn)) {
                 continue;
             }
 
             if (str_contains($fileContent, '#[Autowired]')) {
-                $container->setDefinition($fqn, $this->definitionFactory->create($fqn));
+                $container->setDefinition($fqcn, $this->definitionFactory->create($fqcn));
                 continue;
             }
 
-            $this->processAttributes($fqn, $fileContent, $container);
+            $this->processAttributes($fqcn, $fileContent, $container);
         }
     }
 
     /**
-     * @param class-string $namespace
+     * @param class-string $fqcn
      * @throws ReflectionException
      */
-    private function processAttributes(string $namespace, string $content, ContainerBuilder $container): void
+    private function processAttributes(string $fqcn, string $content, ContainerBuilder $container): void
     {
-        $reflectionClass = new ReflectionClass($namespace);
+        $reflectionClass = new ReflectionClass($fqcn);
         if ($reflectionClass->isAbstract()) {
             return;
         }
@@ -82,8 +82,8 @@ class AutowiredRegisterPass implements CompilerPassInterface
             $attr = $attribute->newInstance();
 
             $this->attributeValidator->validate($attr, $content);
-            
-            $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->create($namespace, $attr));
+
+            $container->setDefinition($attr->id ?? $fqcn, $this->definitionFactory->create($fqcn, $attr));
         }
     }
 }

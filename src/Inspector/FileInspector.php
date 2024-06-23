@@ -11,7 +11,7 @@ class FileInspector
     /**
      * Returns the full qualified namespace of a file.
      */
-    public function getFullQualifiedNamespace(SplFileInfo $file): string
+    public function getFullQualifiedClassName(SplFileInfo $file): string
     {
         if (preg_match('/namespace\s+(?P<path>.*?);/s', $file->getContents(), $matches) === 1) {
             return $matches['path'] . '\\' . $file->getBasename('.php');

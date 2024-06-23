@@ -10,11 +10,11 @@ use Symfony\Component\DependencyInjection\Definition;
 class DefinitionFactory
 {
     /**
-     * @param class-string $fqn
+     * @param class-string $fqcn
      */
-    public function create(string $fqn, ?Autowired $attribute = null): Definition
+    public function create(string $fqcn, ?Autowired $attribute = null): Definition
     {
-        $definition = (new Definition($fqn))
+        $definition = (new Definition($fqcn))
             ->setAutoconfigured(true)
             ->setPublic(true)
             ->setAutowired(true);
