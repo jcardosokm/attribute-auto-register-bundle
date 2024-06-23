@@ -8,6 +8,7 @@ use AttributeAutoRegisterBundle\Attribute\Autowired;
 use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
 use AttributeAutoRegisterBundle\Inspector\FileInspector;
 use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Finder\Finder;
