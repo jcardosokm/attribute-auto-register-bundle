@@ -13,7 +13,7 @@ class DefinitionFactory
     /**
      * @param class-string $fqn
      */
-    public function create(string $fqn, string $content = '', ?Autowired $attribute = null): Definition
+    public function create(string $fqn, ?Autowired $attribute = null): Definition
     {
         $definition = (new Definition($fqn))
             ->setAutoconfigured(true)

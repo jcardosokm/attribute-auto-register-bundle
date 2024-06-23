@@ -29,7 +29,7 @@ class DefinitionFactoryTest extends TestCase
         $fqn       = Assert::classString(TestFactoryClass::class);
         $attribute = new Autowired('id1', TestFactoryClassFactory::class, 'create', ['UT\AutowiredAlias']);
 
-        $definition = $this->factory->create($fqn, '', $attribute);
+        $definition = $this->factory->create($fqn, $attribute);
 
         static::assertSame($fqn, $definition->getClass());
         static::assertSame([$attribute->factory, $attribute->factoryMethod], $definition->getFactory());
@@ -46,7 +46,7 @@ class DefinitionFactoryTest extends TestCase
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Factory method must be set when factory is set');
 
-        $definition = $this->factory->create($fqn, '', $attribute);
+        $definition = $this->factory->create($fqn, $attribute);
 
         static::assertSame($fqn, $definition->getClass());
         static::assertNull($definition->getFactory());
