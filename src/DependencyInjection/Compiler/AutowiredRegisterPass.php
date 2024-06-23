@@ -7,6 +7,7 @@ namespace AttributeAutoRegisterBundle\DependencyInjection\Compiler;
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
 use AttributeAutoRegisterBundle\Inspector\FileInspector;
+use AttributeAutoRegisterBundle\Validator\AttributeValidator;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -23,6 +24,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
     public function __construct(
         private readonly FileInspector $fileInspector,
         private readonly DefinitionFactory $definitionFactory,
+        private readonly AttributeValidator $attributeValidator,
         private readonly Finder $finder
     ) {
     }
@@ -41,9 +43,9 @@ class AutowiredRegisterPass implements CompilerPassInterface
 
         /** @var SplFileInfo $file */
         foreach ($this->finder as $file) {
-            $content = $file->getContents();
+            $fileContent = $file->getContents();
 
-            if (str_contains($content, '#[Autowired') === false) {
+            if (str_contains($fileContent, '#[Autowired') === false) {
                 continue;
             }
 
@@ -53,12 +55,12 @@ class AutowiredRegisterPass implements CompilerPassInterface
                 continue;
             }
 
-            if (str_contains($content, '#[Autowired]')) {
+            if (str_contains($fileContent, '#[Autowired]')) {
                 $container->setDefinition($fqn, $this->definitionFactory->create($fqn));
                 continue;
             }
 
-            $this->processAttributes($fqn, $content, $container);
+            $this->processAttributes($fqn, $fileContent, $container);
         }
     }
 
@@ -78,6 +80,9 @@ class AutowiredRegisterPass implements CompilerPassInterface
         /** @var ReflectionClass<Autowired> $attribute */
         foreach ($attributes as $attribute) {
             $attr = $attribute->newInstance();
+
+            $this->attributeValidator->validate($attr, $content);
+            
             $container->setDefinition($attr->id ?? $namespace, $this->definitionFactory->create($namespace, $attr));
         }
     }

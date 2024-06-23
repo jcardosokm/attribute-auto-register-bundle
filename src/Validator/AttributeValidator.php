@@ -6,36 +6,24 @@ namespace AttributeAutoRegisterBundle\Validator;
 
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 use LogicException;
-use Symfony\Component\DependencyInjection\Definition;
 
 class AttributeValidator
 {
-    /**
-     * @param class-string $fqn
-     */
-    public function validate(string $fqn, string $content = '', ?Autowired $attribute = null): Definition
+    public function validate(Autowired $attribute, string $fileContent): void
     {
-        $definition = (new Definition($fqn))
-            ->setAutoconfigured(true)
-            ->setPublic(true)
-            ->setAutowired(true);
-
-        if ($attribute === null) {
-            return $definition;
-        }
-
-        foreach ($attribute->aliases as $tag) {
-            $definition->addTag($tag);
-        }
-
         if ($attribute->factory !== null) {
             if ($attribute->factoryMethod === null) {
                 throw new LogicException('Factory method must be set when factory is set');
             }
-
-            $definition->setFactory([$attribute->factory, $attribute->factoryMethod]);
+            if (str_contains($fileContent, 'function ' . $attribute->factoryMethod) === false) {
+                throw new LogicException('Factory method ' . $attribute->factoryMethod . ' not found in ' . $attribute->factory);
+            }
+            if (str_contains($fileContent, 'static function ' . $attribute->factory) === false) {
+                throw new LogicException('Method ' . $attribute->factoryMethod . ' must be declared static');
+            }
+            if (str_contains($fileContent, 'public static function ' . $attribute->factory) === false) {
+                throw new LogicException('Method ' . $attribute->factoryMethod . ' must be declared public');
+            }
         }
-
-        return $definition;
     }
 }
