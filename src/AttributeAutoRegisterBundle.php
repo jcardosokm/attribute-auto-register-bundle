@@ -8,6 +8,7 @@ use AttributeAutoRegisterBundle\DependencyInjection\AttributeAutoRegisterExtensi
 use AttributeAutoRegisterBundle\DependencyInjection\Compiler\AutowiredRegisterPass;
 use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
 use AttributeAutoRegisterBundle\Inspector\FileInspector;
+use AttributeAutoRegisterBundle\Validator\AttributeValidator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\Finder\Finder;
@@ -18,11 +19,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 final class AttributeAutoRegisterBundle extends Bundle
 {
-    public function __construct()
-    {
-        // This is a bundle class, tested by the functional test
-    }
-
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
@@ -31,6 +27,7 @@ final class AttributeAutoRegisterBundle extends Bundle
             new AutowiredRegisterPass(
                 new FileInspector(),
                 new DefinitionFactory(),
+                new AttributeValidator(),
                 new Finder()
             )
         );

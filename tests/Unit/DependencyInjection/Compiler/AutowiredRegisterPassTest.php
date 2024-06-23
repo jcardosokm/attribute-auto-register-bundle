@@ -7,6 +7,7 @@ namespace AttributeAutoRegisterBundle\Tests\Unit\DependencyInjection\Compiler;
 use AttributeAutoRegisterBundle\DependencyInjection\Compiler\AutowiredRegisterPass;
 use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
 use AttributeAutoRegisterBundle\Inspector\FileInspector;
+use AttributeAutoRegisterBundle\Validator\AttributeValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,6 +25,7 @@ class AutowiredRegisterPassTest extends TestCase
         $this->compilerPass = new AutowiredRegisterPass(
             $this->createMock(FileInspector::class),
             $this->createMock(DefinitionFactory::class),
+            $this->createMock(AttributeValidator::class),
             $this->createMock(Finder::class)
         );
     }
