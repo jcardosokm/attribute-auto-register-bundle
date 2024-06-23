@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AttributeAutoRegisterBundle\Factory;
 
 use AttributeAutoRegisterBundle\Attribute\Autowired;
-use LogicException;
 use Symfony\Component\DependencyInjection\Definition;
 
 class DefinitionFactory
@@ -29,10 +28,6 @@ class DefinitionFactory
         }
 
         if ($attribute->factory !== null) {
-            if ($attribute->factoryMethod === null) {
-                throw new LogicException('Factory method must be set when factory is set');
-            }
-
             $definition->setFactory([$attribute->factory, $attribute->factoryMethod]);
         }
 
