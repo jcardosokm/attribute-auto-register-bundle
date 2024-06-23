@@ -12,9 +12,9 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 class TestClass
 {
     /**
-     * @param iterable $taggedServices
+     * @param iterable<TaggedServiceInterface> $taggedServices
      */
-    public function __construct(#[AutowireIterator('tagged_service')] private iterable $taggedServices)
+    public function __construct(#[AutowireIterator('tagged_service')] private readonly iterable $taggedServices)
     {
     }
 
