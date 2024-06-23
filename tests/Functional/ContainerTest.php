@@ -38,7 +38,7 @@ class ContainerTest extends AbstractKernelTestCase
     public function testAttributeAliases(): void
     {
         $testClass = $this->container->get(TestClass::class);
-        static::assertNotNull($testClass);
+        static::assertInstanceOf(TestClass::class, $testClass);
 
         $taggedServices = $testClass->getTaggedServices();
         static::assertCount(2, $taggedServices);
