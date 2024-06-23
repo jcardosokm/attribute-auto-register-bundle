@@ -13,7 +13,7 @@ use Traversable;
 class TestClass
 {
     /**
-     * @param Traversable<TaggedServiceInterface> $taggedServices
+     * @param Traversable $taggedServices
      */
     public function __construct(#[AutowireIterator('tagged_service')] private Traversable $taggedServices)
     {
