@@ -32,12 +32,6 @@ class DefinitionFactory
             if ($attribute->factoryMethod === null) {
                 throw new LogicException('Factory method must be set when factory is set');
             }
-            if (method_exists($attribute->factory, $attribute->factoryMethod) === false) {
-                throw new LogicException('Factory method does not exist');
-            }
-            if (strpos($attribute->factoryMethod, '__') === 0) {
-                throw new LogicException('Factory method must not be private');
-            }
 
             $definition->setFactory([$attribute->factory, $attribute->factoryMethod]);
         }
