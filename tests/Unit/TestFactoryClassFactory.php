@@ -8,16 +8,10 @@ use App\Entity\FactoryClass;
 
 class TestFactoryClassFactory
 {
-    public const CONFIG_A = 'configA';
-    public const CONFIG_B = 'configB';
+    public const CONFIG = 'config';
 
-    public static function createA(): FactoryClass
+    public static function create(): FactoryClass
     {
-        return new FactoryClass( self::CONFIG_A);
-    }
-
-    public static function createB(): FactoryClass
-    {
-        return new FactoryClass(self::CONFIG_B);
+        return new FactoryClass( self::CONFIG);
     }
 }
