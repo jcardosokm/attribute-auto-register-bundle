@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AttributeAutoRegisterBundle\Tests\Unit\Factory;
 
+use App\Entity\TestClass;
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 use AttributeAutoRegisterBundle\Factory\DefinitionFactory;
-use AttributeAutoRegisterBundle\Tests\Functional\App\TestClass;
 use DR\Utils\Assert;
 use LogicException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 #[CoversClass(DefinitionFactory::class)]
 class DefinitionFactoryTest extends TestCase
@@ -23,12 +24,15 @@ class DefinitionFactoryTest extends TestCase
         $this->factory = new DefinitionFactory();
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testCreateWithAttribute(): void
     {
         $fqn       = Assert::classString(TestClass::class);
         $attribute = new Autowired('id1', 'MyFactory', 'create', ['UT\AutowiredAlias']);
 
-        $definition = $this->factory->create($fqn, $attribute);
+        $definition = $this->factory->create($fqn, '', $attribute);
 
         static::assertSame($fqn, $definition->getClass());
         static::assertSame([$attribute->factory, $attribute->factoryMethod], $definition->getFactory());
@@ -39,13 +43,13 @@ class DefinitionFactoryTest extends TestCase
 
     public function testCreateWithAttributeWithoutFactoryMethod(): void
     {
-        $fqn       = Assert::classString('AttributeAutoRegisterBundle\Tests\Functional\App\TestClass');
+        $fqn       = Assert::classString('App\Entity\TestClass');
         $attribute = new Autowired('id3', 'MyFactory', aliases: ['UT\AutowiredAlias']);
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Factory method must be set when factory is set');
 
-        $definition = $this->factory->create($fqn, $attribute);
+        $definition = $this->factory->create($fqn, '', $attribute);
 
         static::assertSame($fqn, $definition->getClass());
         static::assertNull($definition->getFactory());
