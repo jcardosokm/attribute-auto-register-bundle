@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AttributeAutoRegisterBundle\Tests\Functional;
 
-use App\Entity\FactoryClass;
-use App\Entity\TestClass;
-use App\TaggedServices\TaggedServiceA;
-use App\TaggedServices\TaggedServiceB;
+use AttributeAutoRegisterBundle\Tests\Functional\App\Entity\FactoryClass;
+use AttributeAutoRegisterBundle\Tests\Functional\App\Entity\TestClass;
+use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceA;
+use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceB;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Symfony\Component\DependencyInjection\Container;

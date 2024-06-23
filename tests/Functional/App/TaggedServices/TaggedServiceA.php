@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\TaggedServices;
+namespace AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices;
 
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 

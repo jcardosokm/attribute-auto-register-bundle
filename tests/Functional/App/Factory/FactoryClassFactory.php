@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Factory;
+namespace AttributeAutoRegisterBundle\Tests\Functional\App\Factory;
 
-use App\Entity\FactoryClass;
+use AttributeAutoRegisterBundle\Tests\Functional\App\Entity\FactoryClass;
 
 class FactoryClassFactory
 {

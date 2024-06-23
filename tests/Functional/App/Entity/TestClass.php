@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace AttributeAutoRegisterBundle\Tests\Functional\App\Entity;
 
-use App\TaggedServices\TaggedServiceA;
-use App\TaggedServices\TaggedServiceB;
 use AttributeAutoRegisterBundle\Attribute\Autowired;
+use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceA;
+use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceB;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Traversable;
 
