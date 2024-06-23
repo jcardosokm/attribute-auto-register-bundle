@@ -13,7 +13,7 @@ class FactoryClassFactory
 
     public static function createA(): FactoryClass
     {
-        return new FactoryClass( self::CONFIG_A);
+        return new FactoryClass(self::CONFIG_A);
     }
 
     public static function createB(): FactoryClass
