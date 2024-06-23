@@ -22,7 +22,7 @@ class FileInspectorTest extends TestCase
 
     public function testGetFullQualifiedNamespace(): void
     {
-        $file = new SplFileInfo('App/Entity/TestClass.php', 'tests/Functional/App/Entity', 'TestClass.php');
+        $file = new SplFileInfo('tests/Functional/App/Entity/TestClass.php', 'tests/Functional/App/Entity', 'TestClass.php');
 
         static::assertSame('App\Entity\TestClass', $this->fileInspector->getFullQualifiedNamespace($file));
     }
