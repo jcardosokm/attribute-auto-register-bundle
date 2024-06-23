@@ -24,7 +24,8 @@ class FileInspectorTest extends TestCase
     {
         $file = new SplFileInfo('tests/Functional/App/Entity/TestClass.php', 'tests/Functional/App/Entity', 'TestClass.php');
 
-        static::assertSame('App\Entity\TestClass', $this->fileInspector->getFullQualifiedNamespace($file));
+        $fqn = $this->fileInspector->getFullQualifiedNamespace($file);
+        static::assertSame('AttributeAutoRegisterBundle\Tests\Functional\App\Entity\TestClass', $fqn);
     }
 
     /**
