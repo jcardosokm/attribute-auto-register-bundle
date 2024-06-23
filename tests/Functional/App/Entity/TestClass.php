@@ -7,13 +7,13 @@ namespace AttributeAutoRegisterBundle\Tests\Functional\App\Entity;
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceInterface;
 use Exception;
-use IteratorAggregate;
-use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use Traversable;
 
 #[Autowired]
 class TestClass
 {
-    public function __construct(#[AutowireIterator('tagged_service')] private IteratorAggregate $taggedServices)
+    public function __construct(#[TaggedIterator('tagged_service')] private Traversable $taggedServices)
     {
     }
 
@@ -23,6 +23,6 @@ class TestClass
      */
     public function getTaggedServices(): array
     {
-        return iterator_to_array($this->taggedServices->getIterator());
+        return iterator_to_array($this->taggedServices);
     }
 }
