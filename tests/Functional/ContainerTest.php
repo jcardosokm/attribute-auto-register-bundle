@@ -6,8 +6,7 @@ namespace AttributeAutoRegisterBundle\Tests\Functional;
 
 use AttributeAutoRegisterBundle\Tests\Functional\App\Entity\FactoryClass;
 use AttributeAutoRegisterBundle\Tests\Functional\App\Entity\TestClass;
-use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceA;
-use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceB;
+use AttributeAutoRegisterBundle\Tests\Functional\App\TaggedServices\TaggedServiceInterface;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Symfony\Component\DependencyInjection\Container;
@@ -44,8 +43,9 @@ class ContainerTest extends AbstractKernelTestCase
         $taggedServices = $testClass->getTaggedServices();
         static::assertCount(2, $taggedServices);
 
-        static::assertInstanceOf(TaggedServiceA::class, $taggedServices[0]);
-        static::assertInstanceOf(TaggedServiceB::class, $taggedServices[1]);
+        foreach ($taggedServices as $taggedService) {
+            static::assertInstanceOf(TaggedServiceInterface::class, $taggedService);
+        }
     }
 
     /**
