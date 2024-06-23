@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AttributeAutoRegisterBundle\Tests\Unit;
 
-use App\Entity\FactoryClass;
+use AttributeAutoRegisterBundle\Tests\Functional\App\Entity\FactoryClass;
 
 class TestFactoryClassFactory
 {
