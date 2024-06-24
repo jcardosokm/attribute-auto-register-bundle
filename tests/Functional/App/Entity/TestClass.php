@@ -16,7 +16,7 @@ class TestClass
     /**
      * @param Traversable<TaggedServiceInterface> $taggedServices
      */
-    public function __construct(#[TaggedIterator('tagged_service')] private Traversable $taggedServices)
+    public function __construct(#[TaggedIterator('tagged_service')] private readonly Traversable $taggedServices)
     {
     }
 
