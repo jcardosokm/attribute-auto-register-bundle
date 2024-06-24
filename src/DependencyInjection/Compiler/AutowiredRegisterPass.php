@@ -60,7 +60,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
                 continue;
             }
 
-            $this->processAttributes($fqcn, $fileContent, $container);
+            $this->processAttributes($fqcn, $container);
         }
     }
 
@@ -68,7 +68,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
      * @param class-string $fqcn
      * @throws ReflectionException
      */
-    private function processAttributes(string $fqcn, string $content, ContainerBuilder $container): void
+    private function processAttributes(string $fqcn, ContainerBuilder $container): void
     {
         $reflectionClass = new ReflectionClass($fqcn);
         if ($reflectionClass->isAbstract()) {
