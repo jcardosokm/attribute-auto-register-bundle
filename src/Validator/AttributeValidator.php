@@ -6,34 +6,37 @@ namespace AttributeAutoRegisterBundle\Validator;
 
 use AttributeAutoRegisterBundle\Attribute\Autowired;
 use LogicException;
+use ReflectionClass;
+use ReflectionException;
 
 class AttributeValidator
 {
-    public function validate(Autowired $attribute, string $fileContent): bool
+    /**
+     * @throws ReflectionException
+     */
+    public function validate(Autowired $attribute): bool
     {
         if ($attribute->factory !== null) {
+            $factory = new ReflectionClass($attribute->factory);
+
             if ($attribute->factoryMethod === null) {
                 throw new LogicException('Factory method must be set when factory is set');
             }
-            if (str_contains($fileContent, 'function ' . $attribute->factoryMethod . '(') === false) {
-                $className = $this->getClassName($attribute->factory);
-                throw new LogicException('Factory method ' . $attribute->factoryMethod . ' not found in ' . $className);
+
+            if ($factory->hasMethod($attribute->factoryMethod) === false) {
+                throw new LogicException('Factory method ' . $attribute->factoryMethod . ' not found in ' . $factory->getShortName());
             }
-            if (str_contains($fileContent, 'static function ' . $attribute->factoryMethod . '(') === false) {
+
+            $method = $factory->getMethod($attribute->factoryMethod);
+            if ($method->isStatic() === false) {
                 throw new LogicException('Method ' . $attribute->factoryMethod . ' must be declared static');
             }
-            if (str_contains($fileContent, 'public static function ' . $attribute->factoryMethod . '(') === false) {
+
+            if ($method->isPublic() === false) {
                 throw new LogicException('Method ' . $attribute->factoryMethod . ' must be declared public');
             }
         }
 
         return true;
-    }
-
-    private function getClassName(string $fqcn): string
-    {
-        $array = explode('\\', $fqcn);
-
-        return end($array);
     }
 }

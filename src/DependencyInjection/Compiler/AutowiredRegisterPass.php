@@ -81,7 +81,7 @@ class AutowiredRegisterPass implements CompilerPassInterface
         foreach ($attributes as $attribute) {
             $attr = $attribute->newInstance();
 
-            $this->attributeValidator->validate($attr, $content);
+            $this->attributeValidator->validate($attr);
 
             $container->setDefinition($attr->id ?? $fqcn, $this->definitionFactory->create($fqcn, $attr));
         }

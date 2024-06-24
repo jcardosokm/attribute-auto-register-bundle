@@ -10,6 +10,7 @@ use AttributeAutoRegisterBundle\Validator\AttributeValidator;
 use LogicException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 #[CoversClass(AttributeValidator::class)]
 class AttributeValidatorTest extends TestCase
@@ -21,51 +22,75 @@ class AttributeValidatorTest extends TestCase
         $this->validator = new AttributeValidator();
     }
 
-    public function testValidate(): void
+    /**
+     * @throws ReflectionException
+     */
+    public function testValidateWithNullFactory(): void
     {
-        $attribute   = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'create');
-        $fileContent = file_get_contents('tests/Unit/TestFactoryClassFactory.php');
+        $attribute = new Autowired();
 
-        static::assertTrue($this->validator->validate($attribute, $fileContent));
+        static::assertTrue($this->validator->validate($attribute));
     }
 
-    public function testValidateWithoutFactoryMethod(): void
+    /**
+     * @throws ReflectionException
+     */
+    public function testValidateWithFactoryAndNullFactoryMethod(): void
     {
-        $attribute   = new Autowired(factory: TestFactoryClassFactory::class);
-        $fileContent = file_get_contents('tests/Unit/TestFactoryClassFactory.php');
+        $attribute = new Autowired(factory: TestFactoryClassFactory::class);
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Factory method must be set when factory is set');
-        $this->validator->validate($attribute, $fileContent);
+
+        $this->validator->validate($attribute);
     }
 
-    public function testValidateFactoryMethodNotFound(): void
+    /**
+     * @throws ReflectionException
+     */
+    public function testValidateWithFactoryAndNonExistentFactoryMethod(): void
     {
-        $attribute   = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'create');
-        $fileContent = '';
+        $attribute = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'nonExistentMethod');
 
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Factory method create not found in TestFactoryClassFactory');
-        $this->validator->validate($attribute, $fileContent);
+        $this->expectExceptionMessage('Factory method nonExistentMethod not found in TestFactoryClassFactory');
+
+        $this->validator->validate($attribute);
     }
 
-    public function testValidateFactoryNotStaticMethod(): void
+    /**
+     * @throws ReflectionException
+     */
+    public function testValidateWithFactoryAndNonStaticFactoryMethod(): void
     {
-        $attribute   = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'createNotStatic');
-        $fileContent = 'private function createNotStatic()';
+        $attribute = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'nonStaticMethod');
 
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Method createNotStatic must be declared static');
-        $this->validator->validate($attribute, $fileContent);
+        $this->expectExceptionMessage('Method nonStaticMethod must be declared static');
+
+        $this->validator->validate($attribute);
     }
 
-    public function testValidateFactoryMethodNotStatic(): void
+    /**
+     * @throws ReflectionException
+     */
+    public function testValidateWithFactoryAndNonPublicFactoryMethod(): void
     {
-        $attribute   = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'create');
-        $fileContent = 'private static function create()';
+        $attribute = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'nonPublicMethod');
 
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Method create must be declared public');
-        $this->validator->validate($attribute, $fileContent);
+        $this->expectExceptionMessage('Method nonPublicMethod must be declared public');
+
+        $this->validator->validate($attribute);
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function testValidateWithFactoryAndValidFactoryMethod(): void
+    {
+        $attribute = new Autowired(factory: TestFactoryClassFactory::class, factoryMethod: 'validMethod');
+
+        static::assertTrue($this->validator->validate($attribute));
     }
 }

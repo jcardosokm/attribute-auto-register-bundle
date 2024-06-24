@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AttributeAutoRegisterBundle\Tests\Unit;
 
-use AttributeAutoRegisterBundle\Tests\Functional\App\Entity\FactoryClass;
-
 class TestFactoryClassFactory
 {
-    public const CONFIG = 'config';
-
-    public static function create(): FactoryClass
+    public static function validMethod(): void
     {
-        return new FactoryClass( self::CONFIG);
+    }
+
+    public function nonStaticMethod(): void
+    {
+    }
+
+    protected static function nonPublicMethod(): void
+    {
     }
 }

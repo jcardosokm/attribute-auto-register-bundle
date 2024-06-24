@@ -11,6 +11,7 @@ class Autowired
 {
     /**
      * @codeCoverageIgnore
+     * @param class-string $factory
      * @param array<string> $aliases
      */
     public function __construct(
