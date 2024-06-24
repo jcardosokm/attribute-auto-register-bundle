@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd"
-         bootstrap="tests/bootstrap.php"
-         failOnRisky="true"
-         failOnWarning="true"
-         beStrictAboutChangesToGlobalState="true"
-         beStrictAboutOutputDuringTests="true"
-         executionOrder="defects"
-         cacheDirectory=".phpunit.cache"
-         requireCoverageMetadata="true">
-    <php>
-        <env name="KERNEL_CLASS" value="AttributeAutoRegisterBundle\Tests\Functional\App\TestKernel"/>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0"/>
-    </php>
-    <testsuites>
-        <testsuite name="functional">
-            <directory>tests/Functional</directory>
-        </testsuite>
-        <testsuite name="unit">
-            <directory>tests/Unit</directory>
-        </testsuite>
-    </testsuites>
-    <coverage/>
-    <source>
-        <include>
-            <directory>src</directory>
-        </include>
-    </source>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd" bootstrap="tests/bootstrap.php" failOnRisky="true" failOnWarning="true" beStrictAboutChangesToGlobalState="true" beStrictAboutOutputDuringTests="true" executionOrder="defects" cacheDirectory=".phpunit.cache" requireCoverageMetadata="true">
+  <php>
+    <env name="KERNEL_CLASS" value="AttributeAutoRegisterBundle\Tests\Functional\App\TestKernel"/>
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0"/>
+  </php>
+  <testsuites>
+    <testsuite name="functional">
+      <directory>tests/Functional</directory>
+    </testsuite>
+    <testsuite name="unit">
+      <directory>tests/Unit</directory>
+    </testsuite>
+    <testsuite name="rector">
+      <directory>utils/rector/tests</directory>
+    </testsuite>
+  </testsuites>
+  <coverage/>
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
 </phpunit>
