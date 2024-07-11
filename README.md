@@ -17,7 +17,7 @@ Enable the bundle in your Symfony application by adding it to the bundles.php fi
 // config/bundles.php
 return [
     // ...
-    YourVendor\AttributeAutoRegisterBundle\AttributeAutoRegisterBundle::class => ['all' => true],
+    Jcardosokm\AttributeAutoRegisterBundle\AttributeAutoRegisterBundle::class => ['all' => true],
 ];
 ```
 
@@ -40,7 +40,7 @@ attribute_auto_register:
 
 namespace App\Service;
 
-use YourVendor\AttributeAutoRegisterBundle\Attribute\Autowired;
+use Jcardosokm\AttributeAutoRegisterBundle\Attribute\Autowired;
 
 #[Autowired(id: 'app.my_service')]
 class MyService
@@ -70,7 +70,7 @@ Here is a simple example to illustrate the usage of the Autowired attribute:
 <?php
 namespace App\Service;
 
-use YourVendor\AttributeAutoRegisterBundle\Attribute\Autowired;
+use Jcardosokm\AttributeAutoRegisterBundle\Attribute\Autowired;
 
 #[Autowired(id: 'app.custom_service', factory: 'App\Service\CustomServiceFactory', factoryMethod: 'create')]
 class CustomService
